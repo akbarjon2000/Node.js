@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Customer = require('../models/customers')
 const mongoose = require('mongoose');
+
 mongoose.connect('mongodb://localhost/vidly')
   .then(() => console.log("Connected to CUSTOMERS database..."))
   .catch(err => console.log(err));

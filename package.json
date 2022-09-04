@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "fawn": "^2.1.5",
+    "mongodb": "^4.8.1"
+  }
+}
