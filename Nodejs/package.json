@@ -1,0 +1,21 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "learning node js",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index",
+    "dev": "nodemon index"
+  },
+  "keywords": [
+    "nodejs",
+    "node",
+    "learning"
+  ],
+  "author": "Akbarjon Abdulkhamidov",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.19",
+    "uuid": "^8.3.2"
+  }
+}
