@@ -4,7 +4,8 @@ const { User } = require("../models/users");
 const _ = require("lodash")
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt")
-
+const jwt = require("jsonwebtoken");
+const config = require("config")
 
 mongoose.connect("mongodb://localhost/vidly")
     .then(() => console.log("Conected To Users Database..."))
@@ -22,7 +23,9 @@ router.post("/", async (req, res) => {
     const salt = await bcrypt.genSalt(10)
     user.password = await bcrypt.hash(user.password, salt)
     await user.save();
-    res.send(_.pick(user, ["name", "email"]));
+
+    const token = jwt.sign({ _id: user._id }, config.get("jwtPrivateKey"))
+    res.header("x-auth-tooken", token).send(_.pick(user, ["name", "email"]));
 })
 
 module.exports = router

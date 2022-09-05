@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const config = require("config")
 Joi.objectId = require("joi-objectid")(Joi)
 const genres = require('./routes/genres');
 const customers = require('./routes/customers');
@@ -9,6 +10,11 @@ const auth = require('./routes/auth')
 
 const express = require('express');
 const app = express();
+
+if (!config.get("jwtPrivateKey")) {
+    console.error("FATAL ERROR: jwtPrivateKet is not defined.");
+    process.exit(1)
+}
 
 app.use(express.json());
 app.use('/api/genres', genres);
