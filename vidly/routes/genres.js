@@ -1,8 +1,10 @@
+const auth = require("../middleware/auth")
+const admin = require("../middleware/admin");
 const express = require('express');
 const router = express.Router();
 const Genre = require('../models/genres')
 const mongoose = require("mongoose")
-
+const Joi = require('joi');
 mongoose.connect("mongodb://localhost/vidly")
   .then(() => console.log("Connected to Genres Database..."))
   .catch(err => console.log(err))
@@ -22,7 +24,7 @@ router.get("/:id/", async (req, res) => {
   else res.send(genre)
 })
 
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const schema = Joi.object({
     name: Joi.string().min(5).max(20).required()
   })
@@ -59,7 +61,7 @@ router.put("/:id", async (req, res) => {
 
 })
 
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", [auth, admin], async (req, res) => {
   const id = req.params.id;
   const genre = Genre.find({ id });
   if (!genre) return res.status(404).send(`The course with the given ID: ${id} is not found`)
