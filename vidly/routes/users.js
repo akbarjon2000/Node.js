@@ -20,7 +20,7 @@ router.get('/me', authorize, async (req, res) => {
 router.post("/", async (req, res) => {
     const email = await User.findOne({ email: req.body.email });
     if (email) return res.status(400).send("user already registered")
-
+    // joi is not functioning well!
     // const { error } = validate(req.body);
     // if (error) return res.status(400).send()
 
